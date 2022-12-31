@@ -60,5 +60,6 @@ if [ ! -d "$example_location" ]; then
 fi
 cd $example_location
 failOnExit git pull
+failOnExit git checkout mxj/demo
 
 echo "init over"
