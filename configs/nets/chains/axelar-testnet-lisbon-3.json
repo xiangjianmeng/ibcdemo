@@ -1,0 +1,18 @@
+{
+  "type": "cosmos",
+  "value": {
+    "key": "testkey",
+    "chain-id": "axelar-testnet-lisbon-3",
+    "rpc-addr": "https://axelar-lisbon-rpc.allthatnode.com:26657",
+    "grpc-addr": "",
+    "account-prefix": "axelar",
+    "keyring-backend": "test",
+    "gas-adjustment": 1.2,
+    "gas-prices": "0.01uaxl",
+    "debug": true,
+    "timeout": "10s",
+    "output-format": "json",
+    "sign-mode": "direct"
+  }
+}
+

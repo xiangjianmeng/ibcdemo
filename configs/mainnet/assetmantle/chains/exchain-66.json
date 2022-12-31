@@ -1,0 +1,18 @@
+{
+  "type": "cosmos",
+  "value": {
+    "key": "testkey",
+    "chain-id": "exchain-66",
+    "rpc-addr": "https://exchaintmrpc.okex.org:443",
+    "grpc-addr": "",
+    "account-prefix": "ex",
+    "keyring-backend": "test",
+    "gas-adjustment": 1.5,
+    "gas-prices": "100000000wei",
+    "debug": true,
+    "timeout": "10s",
+    "output-format": "json",
+    "sign-mode": "direct"
+  }
+}
+

@@ -1,0 +1,18 @@
+{
+  "type": "cosmos",
+  "value": {
+    "key": "testkey",
+    "chain-id": "chihuahua-1",
+    "rpc-addr": "https://rpc.chihuahua.wtf:443",
+    "grpc-addr": "",
+    "account-prefix": "chihuahua",
+    "keyring-backend": "test",
+    "gas-adjustment": 1.2,
+    "gas-prices": "0.01uhuahua",
+    "debug": true,
+    "timeout": "20s",
+    "output-format": "json",
+    "sign-mode": "direct"
+  }
+}
+

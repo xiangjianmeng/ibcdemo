@@ -1,0 +1,18 @@
+{
+  "type": "cosmos",
+  "value": {
+    "key": "testkey",
+    "chain-id": "axelar-dojo-1",
+    "rpc-addr": "https://rpc-1.axelar.nodes.guru:443",
+    "grpc-addr": "",
+    "account-prefix": "axelar",
+    "keyring-backend": "test",
+    "gas-adjustment": 1.2,
+    "gas-prices": "0.01uaxl",
+    "debug": true,
+    "timeout": "20s",
+    "output-format": "json",
+    "sign-mode": "direct"
+  }
+}
+

@@ -1,0 +1,15 @@
+{
+  "src": {
+    "chain-id": "exchain-66",
+    "port-id": "transfer",
+    "order": "unordered",
+    "version": "ics20-1"
+  },
+  "dst": {
+    "chain-id": "stargaze-1",
+    "port-id": "transfer",
+    "order": "unordered",
+    "version": "ics20-1"
+  }
+}
+

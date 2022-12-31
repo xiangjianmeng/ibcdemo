@@ -1,0 +1,15 @@
+{
+  "src": {
+    "chain-id": "exchain-65",
+    "port-id": "transfer",
+    "order": "unordered",
+    "version": "ics20-1"
+  },
+  "dst": {
+    "chain-id": "cosmoshub-4",
+    "port-id": "transfer",
+    "order": "unordered",
+    "version": "ics20-1"
+  }
+}
+

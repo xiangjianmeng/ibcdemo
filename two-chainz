@@ -1,0 +1,102 @@
+#!/bin/bash
+# two-chainz creates two gaiad chains and configures the relayer to 
+
+SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+GAIA_DATA="$(pwd)/data"
+RELAYER_DIR="$(dirname $SCRIPTDIR)"
+RELAYER_CONF="$HOME/.relayer"
+
+
+startOkc=$1
+startGaia=$2
+
+killbyname() {
+  NAME=$1
+  ps -ef|grep "$NAME"|grep -v grep |awk '{print "kill -9 "$2", "$8}'
+  ps -ef|grep "$NAME"|grep -v grep |awk '{print "kill -9 "$2}' | sh
+  echo "All <$NAME> killed!"
+}
+
+# Ensure jq is installed
+if [[ ! -x "$(which jq)" ]]; then
+  echo "jq (a tool for parsing json in the command line) is required..."
+  echo "https://stedolan.github.io/jq/download/"
+  exit 1
+fi
+
+# Ensure user understands what will be deleted
+#if [[ -d $GAIA_DATA ]] && [[ ! "$1" == "skip" ]]; then
+#  read -p "$(basename $0) will delete \$(pwd)/data and \$HOME/.relayer folders. Do you wish to continue? (y/n): " -n 1 -r
+#  echo
+#  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+#      exit 1
+#  fi
+#fi
+
+# Delete data from old runs
+rm -rf $GAIA_DATA &> /dev/null
+rm -rf $RELAYER_CONF &> /dev/null
+
+# Stop existing gaiad processes
+set -e
+
+# start gaiad
+killbyname gaiad
+killbyname akash &> /dev/null
+killbyname simd &> /dev/null
+chainid0=ibc-0
+chainid1=ibc-1
+echo "Generating gaia configurations..."
+mkdir -p $GAIA_DATA && cd $GAIA_DATA && cd ../
+#./one-chain-ibc.sh gaiad $chainid0 ./data 6657 6656 6060 9090 10000 $startGaia
+./one-chain-ibc.sh gaiad $chainid1 ./data 16657 16656 6061 9091 10001 $startGaia
+
+## start okc
+killbyname exchaind
+killbyname exchaincli
+(cd $(go env GOPATH)/src/github.com/okex/exchain  && make install Venus1Height=1 Venus3Height=1)
+chainid0="exchain-100"
+chainid1="exchain-101"
+echo "Generating exchain configurations..."
+mkdir -p $GAIA_DATA && cd $GAIA_DATA && cd ../
+#./start.sh $chainid0 ./data 26657 26656 26659 9090 8084 $startOkc
+./start.sh $chainid1 ./data 36657 36656 36659 9090 8084 $startOkc
+
+sleep 10
+
+#
+pwd=${PWD}
+rm -rf ~/.relayer
+
+cd ${pwd}
+echo "Generating rly configurations..."
+rly config init
+rly chains add-dir configs/demo/chains
+
+
+rly keys restore exchain-101 admin16  "crime dove school toast excite capable page wheat charge valley gloom audit" --coin-type 60
+#rly keys restore exchain-100 admin16  "crime dove school toast excite capable page wheat charge valley gloom audit" --coin-type 60
+#rly keys restore exchain-65 testkey "crime dove school toast excite capable page wheat charge valley gloom audit" --coin-type 60
+#rly keys restore exchain-66 testkey "crime dove school toast excite capable page wheat charge valley gloom audit" --coin-type 60
+#rly keys restore exchain-64 testkey "crime dove school toast excite capable page wheat charge valley gloom audit" --coin-type 60
+
+
+
+#SEED_CM_0=$(jq -r '.mnemonic' $GAIA_DATA/ibc-0/key_seed.json)
+SEED_CM_1=$(jq -r '.mnemonic' $GAIA_DATA/ibc-1/key_seed.json)
+#echo "Key $(rly keys restore ibc-0 testkey "$SEED_CM_0") imported from ibc-0 to relayer..."
+echo "Key $(rly keys restore ibc-1 testkey "$SEED_CM_1") imported from ibc-1 to relayer..."
+
+rly config add-paths configs/demo/paths
+echo "current pathes"
+rly paths list
+echo "current chains "
+rly chains list
+
+#exchaincli keys add --recover relayer -m  "crime dove school toast excite capable page wheat charge valley gloom audit"  --home ${PWD}/data/exchain-100
+exchaincli keys add --recover relayer -m  "crime dove school toast excite capable page wheat charge valley gloom audit"  --home ${PWD}/data/exchain-101
+
+
+# transfer token to address to create link
+#exchaincli tx send captain `rly keys list exchain-100 | awk '{print $3}'` 100000okt --fees 1okt -b block -y --node tcp://127.0.0.1:26657 --home ${PWD}/data/exchain-100  --chain-id exchain-100
+exchaincli tx send captain `rly keys list exchain-101 | awk '{print $3}'` 100000okt --fees 1okt -b block -y --node tcp://127.0.0.1:36657 --home ${PWD}/data/exchain-101  --chain-id exchain-101

@@ -1,0 +1,15 @@
+{
+  "src": {
+    "chain-id": "exchain-64",
+    "port-id": "transfer",
+    "order": "unordered",
+    "version": "ics20-1"
+  },
+  "dst": {
+    "chain-id": "evmos_9000-4",
+    "port-id": "transfer",
+    "order": "unordered",
+    "version": "ics20-1"
+  }
+}
+

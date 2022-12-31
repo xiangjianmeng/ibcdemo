@@ -1,0 +1,18 @@
+{
+  "type": "cosmos",
+  "value": {
+    "key": "testkey",
+    "chain-id": "evmos_9001-2",
+    "rpc-addr": "https://rpc-evmos-ia.notional.ventures:443",
+    "grpc-addr": "",
+    "account-prefix": "evmos",
+    "keyring-backend": "test",
+    "gas-adjustment": 1.2,
+    "gas-prices": "0.01aevmos",
+    "debug": true,
+    "timeout": "10s",
+    "output-format": "json",
+    "sign-mode": "direct"
+  }
+}
+

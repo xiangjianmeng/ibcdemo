@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  rly_okc101_ibc1-1:
+    container_name: rly_okc101_ibc1-1
+    image: okexchain/relayer:v2.0.0-rc4
+#    restart: on-failure
+    environment:
+      - IBC_PATH=oec100_ibc1
+    volumes:
+      - /Users/oker/.relayer:/root/.relayer

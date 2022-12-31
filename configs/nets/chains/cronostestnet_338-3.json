@@ -1,0 +1,18 @@
+{
+  "type": "cosmos",
+  "value": {
+    "key": "testkey",
+    "chain-id": "cronostestnet_338-3",
+    "rpc-addr": "https://rpc-t3.cronos.org:443",
+    "grpc-addr": "",
+    "account-prefix": "tcrc",
+    "keyring-backend": "test",
+    "gas-adjustment": 1.2,
+    "gas-prices": "5000000000000basetcro",
+    "debug": true,
+    "timeout": "10s",
+    "output-format": "json",
+    "sign-mode": "direct"
+  }
+}
+

@@ -1,0 +1,18 @@
+{
+  "type": "cosmos",
+  "value": {
+    "key": "testkey",
+    "chain-id": "exchain-64",
+    "rpc-addr": "http://44.236.71.233:26657",
+    "grpc-addr": "",
+    "account-prefix": "ex",
+    "keyring-backend": "test",
+    "gas-adjustment": 1.5,
+    "gas-prices": "100000000000wei",
+    "debug": true,
+    "timeout": "10s",
+    "output-format": "json",
+    "sign-mode": "direct"
+  }
+}
+

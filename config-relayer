@@ -1,0 +1,56 @@
+#!/bin/bash
+# two-chainz creates two gaiad chains and configures the relayer to 
+
+SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+GAIA_DATA="$(pwd)/data"
+RELAYER_DIR="$(dirname $SCRIPTDIR)"
+RELAYER_CONF="$HOME/.relayer"
+
+
+start=$1
+
+killbyname() {
+  NAME=$1
+  ps -ef|grep "$NAME"|grep -v grep |awk '{print "kill -9 "$2", "$8}'
+  ps -ef|grep "$NAME"|grep -v grep |awk '{print "kill -9 "$2}' | sh
+  echo "All <$NAME> killed!"
+}
+
+# Ensure jq is installed
+if [[ ! -x "$(which jq)" ]]; then
+  echo "jq (a tool for parsing json in the command line) is required..."
+  echo "https://stedolan.github.io/jq/download/"
+  exit 1
+fi
+
+# Ensure user understands what will be deleted
+#if [[ -d $GAIA_DATA ]] && [[ ! "$1" == "skip" ]]; then
+#  read -p "$(basename $0) will delete \$(pwd)/data and \$HOME/.relayer folders. Do you wish to continue? (y/n): " -n 1 -r
+#  echo
+#  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+#      exit 1
+#  fi
+#fi
+
+
+# Stop existing gaiad processes
+set -e
+
+#
+pwd=${PWD}
+rm -rf ~/.relayer
+
+cd ${pwd}
+echo "Generating rly configurations..."
+rly config init
+rly chains add-dir configs/demo/chains
+
+rly keys restore exchain-65 testkey "crime dove school toast excite capable page wheat charge valley gloom audit"
+rly keys restore exchain-64 testkey "crime dove school toast excite capable page wheat charge valley gloom audit"
+rly keys restore exchain-67 testkey "crime dove school toast excite capable page wheat charge valley gloom audit"
+
+rly paths add-dir configs/demo/paths
+echo "current pathes"
+rly paths list
+echo "current chains "
+rly chains list

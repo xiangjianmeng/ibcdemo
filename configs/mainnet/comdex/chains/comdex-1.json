@@ -1,0 +1,18 @@
+{
+  "type": "cosmos",
+  "value": {
+    "key": "testkey",
+    "chain-id": "comdex-1",
+    "rpc-addr": "https://rpc-comdex.zenchainlabs.io:443",
+    "grpc-addr": "",
+    "account-prefix": "comdex",
+    "keyring-backend": "test",
+    "gas-adjustment": 1.5,
+    "gas-prices": "0.08ucmdx",
+    "debug": true,
+    "timeout": "20s",
+    "output-format": "json",
+    "sign-mode": "direct"
+  }
+}
+
