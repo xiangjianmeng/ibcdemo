@@ -69,9 +69,9 @@ rly paths list
 
 
 # add gaia test network and okc test network
-$SCRIPTDIR/../killbyname.sh npm
+$SCRIPTDIR/killbyname.sh npm
 cd $GOPATH/src/github.com/okex/keplr-example || exit
-export NODE_OPTIONS=--openssl-legacy-provider
+# export NODE_OPTIONS=--openssl-legacy-provider
 cd okc-test || exit
 npm install
 kill -2 `lsof -t -i:8081`
@@ -84,6 +84,7 @@ sleep 1
 $SCRIPTDIR/killbyname.sh npm
 cd ../gaia-test
 npm install
+sed -i "" 's#16659#10001#g' src/main.js
 kill -2 `lsof -t -i:8082`
 nohup npm run dev > $SCRIPTDIR/okc-keplr.log 2>&1 &
 read -p "please open chrome to access http://localhost:8082 and input enter after approve: "
