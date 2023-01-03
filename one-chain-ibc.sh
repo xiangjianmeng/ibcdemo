@@ -63,7 +63,7 @@ if [ -z "$7" ]; then
 fi
 
 BINARY=gaiad
-echo "Creating $BINARY instance: home=$CHAINDIR | chain-id=$CHAINID | p2p=:$P2PPORT | rpc=:$RPCPORT | profiling=:$PROFPORT | grpc=:$GRPCPORT"
+echo "Creating $BINARY instance: home=$CHAINDIR | chain-id=$CHAINID | p2p=:$P2PPORT | rpc=:$RPCPORT | profiling=:$PROFPORT | grpc=:$GRPCPORT | rest=:$RESTPORT"
 
 # Add dir for chain, exit if error
 if ! mkdir -p $CHAINDIR/$CHAINID 2>/dev/null; then

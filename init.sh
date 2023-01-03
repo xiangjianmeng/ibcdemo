@@ -47,7 +47,8 @@ fi
 cd $GOPATH/src/github.com/cosmos/gaia
 git pull
 failOnExit git checkout v7.0.3
-failOnExit LDFLAGS="" make install
+failOnExit export LDFLAGS=""
+failOnExit make install
 
 # download keplr-example
 echo "download keplr-example"
